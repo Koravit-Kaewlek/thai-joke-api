@@ -1,5 +1,5 @@
 const User = require('../model/user-model');
-
+var jwt = require('jsonwebtoken');
 exports.register = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -29,10 +29,14 @@ exports.login = async (req, res) => {
         message: 'username or password inValid',
       });
     } else {
+      const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY);
       res.json({
         isSuccess: true,
         message: 'success',
-        result: { username, password: null },
+        result: {
+          username,
+          token,
+        },
       });
     }
   } catch (err) {
