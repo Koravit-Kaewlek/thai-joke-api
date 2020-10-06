@@ -2,7 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const jokeSchema = new Schema(
   {
-    room: { type: String, unique: true },
+    text: {
+      type: String,
+      required: true,
+    },
+    like: {
+      type: Number,
+    },
+    dislike: {
+      type: Number,
+    },
   },
   {
     timestamps: true,

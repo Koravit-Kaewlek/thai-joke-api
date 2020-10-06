@@ -13,7 +13,7 @@ const router = express.Router();
 router.get('/', getAllJokes);
 router.get('/:id', getJokeById);
 router.post('/', addNewJoke);
-router.delete('/', deleteJoke);
+router.delete('/:id', deleteJoke);
 router.post('/:id/like', likeJoke);
 router.post('/:id/dislike', dislikeJoke);
 
