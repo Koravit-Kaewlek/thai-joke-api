@@ -1,5 +1,5 @@
 const Joke = require('../model/joke-model');
-
+const { verifyToken } = require('./verify-token-controller');
 exports.getAllJokes = async (req, res) => {
   try {
     const data = await Joke.find({});
@@ -33,10 +33,11 @@ exports.getJokeById = async (req, res) => {
     });
   }
 };
-exports.addNewJoke = async (req, res) => {
+exports.addNewJoke = async (req, res, next) => {
   try {
-    const payload = req.body;
-    const joke = new Joke({ like: 0, dislike: 0, ...payload });
+    verifyToken(req, res);
+    const { text } = req.body;
+    const joke = new Joke({ like: 0, dislike: 0, text });
     await joke.save();
     res.json({
       isSuccess: true,
@@ -53,13 +54,21 @@ exports.addNewJoke = async (req, res) => {
 };
 exports.deleteJoke = async (req, res) => {
   try {
+    verifyToken(req, res);
     const id = req.params.id;
     const data = await Joke.findByIdAndDelete({ _id: id });
-    res.json({
-      isSuccess: true,
-      message: 'success',
-      result: data,
-    });
+    if (data) {
+      res.json({
+        isSuccess: true,
+        message: 'success',
+        result: data,
+      });
+    } else {
+      res.json({
+        isSuccess: false,
+        message: 'not found joke',
+      });
+    }
   } catch (err) {
     console.log(err);
     res.json({

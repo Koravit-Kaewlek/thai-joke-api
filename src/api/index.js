@@ -1,5 +1,5 @@
 const express = require('express');
-const userApi = require('./user-api');
+const user = require('./user-api');
 const {
   getAllJokes,
   getJokeById,
@@ -18,5 +18,5 @@ router.delete('/:id', deleteJoke);
 router.post('/:id/like', likeJoke);
 router.post('/:id/dislike', dislikeJoke);
 
-router.use('/user', userApi);
+router.use('/user', user);
 module.exports = router;
