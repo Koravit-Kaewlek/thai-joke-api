@@ -2,8 +2,20 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
-
+const mongoose = require('mongoose');
 require('dotenv').config();
+const uri = process.env.MONGODB_URI;
+mongoose.connect(
+  uri,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  (err) => {
+    if (err) console.log(err);
+    console.log('mongo connected');
+  }
+);
 
 const middlewares = require('./middlewares');
 const api = require('./api');
