@@ -9,14 +9,20 @@ exports.verifyToken = async (req, res) => {
       return;
     }
     const token = req.headers.authorization.split(' ')[1];
-    await jwt.verify(token, process.env.JWT_SECRET_KEY, (err, token) => {
-      if (err) {
-        res.json({
-          isSuccess: false,
-          message: 'token inValid',
-        });
+    const payload = await jwt.verify(
+      token,
+      process.env.JWT_SECRET_KEY,
+      (err, payload) => {
+        if (err) {
+          res.json({
+            isSuccess: false,
+            message: 'token inValid',
+          });
+        }
+        return payload;
       }
-    });
+    );
+    return payload;
   } catch (err) {
     throw err;
   }

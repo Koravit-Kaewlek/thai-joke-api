@@ -12,6 +12,9 @@ const jokeSchema = new Schema(
     dislike: {
       type: Number,
     },
+    createBy: {
+      type: String,
+    },
   },
   {
     timestamps: true,

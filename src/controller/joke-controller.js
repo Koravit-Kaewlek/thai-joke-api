@@ -35,9 +35,14 @@ exports.getJokeById = async (req, res) => {
 };
 exports.addNewJoke = async (req, res, next) => {
   try {
-    verifyToken(req, res);
+    const { username } = await verifyToken(req, res);
     const { text } = req.body;
-    const joke = new Joke({ like: 0, dislike: 0, text });
+    const joke = new Joke({
+      like: 0,
+      dislike: 0,
+      text,
+      createBy: username,
+    });
     await joke.save();
     res.json({
       isSuccess: true,
@@ -54,7 +59,7 @@ exports.addNewJoke = async (req, res, next) => {
 };
 exports.deleteJoke = async (req, res) => {
   try {
-    verifyToken(req, res);
+    await verifyToken(req, res);
     const id = req.params.id;
     const data = await Joke.findByIdAndDelete({ _id: id });
     if (data) {
