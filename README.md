@@ -91,7 +91,7 @@ async/await
 
 6. Explain how HTTP protocol works.
 ```
-   HTTP protocol คือการรับส่งข้อมูลระหว่าง client กับ server ผ่าน internet โดยใช้ http method ซึ่งประกอบไปด้วย
+ HTTP protocol คือการรับส่งข้อมูลระหว่าง client กับ server ผ่าน internet โดยใช้ http method ซึ่งประกอบไปด้วย
  GET ในความหมายคือ การเรียกดูข้อมูลทั้งหมด
  POST ในความหมายคือ การสร้างข้อมูลใหม่โดยส่งผ่านตัว body
  PUT ในความหมายคือการ update ข้อมูลทั้งหมดที่ถูกส่งมาจาก client
